@@ -12,11 +12,13 @@ sig \+|\-
 
 ident {alfab}({alfab}|{dig})*
 lit_i {sig}?{dig}+
-lit_f ({lit_i}.{dig}+)|(E{lit_i})
-lit_c \'\.\'
-lit_s \"\.*\"
+lit_f_c (E|e){lit_i}
+lit_f ({lit_i}.{dig}+)|{lit_f_c}
+lit_c \'.\'
+lit_s \".*\"
 
-ignore [' ']
+line_comm \/\/.*
+ignore [" ""\r"]|{line_comm}
 
 
 %%
@@ -67,9 +69,9 @@ default     { return TK_PR_DEFAULT; }
 
 {ignore}    { }
 
-"\n"                 {++lineNumber;}
+"\n"        { ++lineNumber; }
 
-. return TOKEN_ERRO;
+.           { return TOKEN_ERRO; }
 
 
 %%
