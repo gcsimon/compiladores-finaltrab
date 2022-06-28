@@ -3,9 +3,25 @@
 int lineNumber = 1;
 %}
 
+op_simp [\,\;\:\(\)\[\]\{\}\+\-\|\*\/\<\>\=\!\&\%\#\^\.\$]
+char_uc [A-Z]
+char_lc [a-z]
+alfab {char_uc}|{char_lc}|_
+dig [0-9]
+sig \+|\-
+
+ident {alfab}({alfab}|{dig})*
+lit_i {sig}?{dig}+
+lit_f ({lit_i}.{dig}+)|(E{lit_i})
+lit_c \'\.\'
+lit_s \"\.*\"
+
+ignore [' ']
+
+
 %%
 
-[, ; : ( ) \[ \] { } + - | * / < > = ! & % # ^ . $] { return yytext[0]; }
+{op_simp}   { return yytext[0]; }
 int         { return TK_PR_INT; }
 float       { return TK_PR_FLOAT; }
 bool        { return TK_PR_BOOL; }
@@ -33,10 +49,27 @@ public      { return TK_PR_PUBLIC; }
 protected   { return TK_PR_PROTECTED; }
 end         { return TK_PR_END; }
 default     { return TK_PR_DEFAULT; }
+"<="        { return TK_OC_LE; }
+">="        { return TK_OC_GE; }
+"=="        { return TK_OC_EQ; }
+"!="        { return TK_OC_NE; }
+"&&"        { return TK_OC_AND; }
+"||"        { return TK_OC_OR; }
+">>"        { return TK_OC_SL; }
+"<<"        { return TK_OC_SR; }
+{lit_i}     { return TK_LIT_INT; }
+{lit_f}     { return TK_LIT_FLOAT; }
+"false"     { return TK_LIT_FALSE; }
+"true"      { return TK_LIT_TRUE; }
+{lit_c}     { return TK_LIT_CHAR; }
+{lit_s}     { return TK_LIT_STRING; }
+{ident}     { return TK_IDENTIFICADOR; }
 
-
+{ignore}    { }
 
 "\n"                 {++lineNumber;}
+
+. return TOKEN_ERRO;
 
 
 %%
