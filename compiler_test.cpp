@@ -1,3 +1,6 @@
+// To run with the test, use the following commands:
+// $ make
+// $ ./etapa1 < compiler_test.cpp
 
 class Classe{
     public:
