@@ -34,6 +34,11 @@ protected   { return TK_PR_PROTECTED; }
 end         { return TK_PR_END; }
 default     { return TK_PR_DEFAULT; }
 
+
+
+"\n"                 {++lineNumber;}
+
+
 %%
 int yywrap() {
     return 1;
