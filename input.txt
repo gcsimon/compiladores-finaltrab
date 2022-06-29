@@ -1,0 +1,17 @@
+2
+25
+25.2
+'a'
+' '
+true
+false
+test
+.5
+
+// this is a comment
+
+/*
+
+*/
+
+2
