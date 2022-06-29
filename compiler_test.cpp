@@ -2,6 +2,11 @@
 // $ make
 // $ ./etapa1 < compiler_test.cpp
 
+/* Isto
+é um
+comentário
+*/
+
 class Classe{
     public:
         int att_int;
