@@ -1,6 +1,7 @@
 %{
 #include "parser.tab.h"
 int lineNumber = 1;
+// TODO: Nao funciona com o + por causa da soma
 %}
 
 op_simp [\,\;\:\(\)\[\]\{\}\+\-\|\*\/\<\>\=\!\&\%\#\^\.\$]
@@ -8,12 +9,12 @@ char_uc [A-Z]
 char_lc [a-z]
 alfab {char_uc}|{char_lc}|_
 dig [0-9]
-sig \+|\-
+sig \-|\+
 
 ident {alfab}({alfab}|{dig})*
-lit_i {sig}?{dig}+
+lit_i {dig}+
 lit_f_c (E|e){lit_i}
-lit_f ({lit_i}.{dig}+)|{lit_f_c}
+lit_f ({lit_i}\.{dig}+)|{lit_f_c}
 lit_c \'.\'
 lit_s \".*\"
 

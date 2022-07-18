@@ -124,10 +124,10 @@ list_param_rec:
 
 // BLOCO DE COMANDOS
 bloco_comandos:
-	  '{' bloco_com_req'}'
+	  '{' bloco_com_rec'}'
 	| '{' '}';
-bloco_com_req:
-	  bloco_com_req comando
+bloco_com_rec:
+	  bloco_com_rec comando
 	| comando;
 comando:
 	  dec_var_loc ';' | dec_var_loc_at ';' | atrib ';'| cont_flux | cham_func ';' | ret_break_cont ';' | op_entr ';' | op_saida ';' | shift ';';
@@ -148,10 +148,10 @@ atrib:
 cham_func:
 	  TK_IDENTIFICADOR args;
 args:
-	  '(' args_req ')'
+	  '(' args_rec ')'
 	| '(' ')';
-args_req:
-	  args_req ',' expr
+args_rec:
+	  args_rec ',' expr
 	| expr;
 
 ret_break_cont:
@@ -192,16 +192,26 @@ while:
 
 // EXPRESSOES - NAO TERMINADO!!!!
 expr:
-	  expr_arit
-	| expr_log;
-expr_arit:
+	  expr op_bin exprs
+	| exprs
+	| op_un exprs;
+exprs:
 	  TK_IDENTIFICADOR
 	| TK_IDENTIFICADOR '[' expr ']'
-	| lit_arit;
-//	| CHAMADA DE FUNCAO
+	| expr_arit
+	| expr_log;
+expr_arit:
+	  lit_arit
+	| cham_func;
 expr_log:
 	  lit_log;
-//	| OPERADORES RELACIONAIS
+
+op_bin:
+	  '+' | '-' | '*' | '/' | '%' | '|' | '&' | '^' | TK_OC_LE | TK_OC_GE | TK_OC_EQ | TK_OC_NE | TK_OC_AND | TK_OC_OR
+	| TK_OC_SL | TK_OC_SR;
+
+op_un:
+	  '+' | '-' | '!' | '&' | '*' | '?' | '#';
 
 %%
 
