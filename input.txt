@@ -81,6 +81,11 @@ float func (const int a, int b){
 		}
 	}
 	if (true){
+		int a <= 50;
+	}
+
+	else(true){
+		char a <= 'b';
 	}
 	
 	break;

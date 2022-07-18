@@ -59,103 +59,142 @@ int get_line_number();
 
 %%
 
-programa:	TK_EOF
-		| list_def_glob;
+programa:
+	  TK_EOF
+	| list_def_glob;
 
-list_def_glob:	list_def_glob def_glob
-		| def_glob;
-def_glob:	TK_PR_STATIC dec
-		| dec
-		| func;
+list_def_glob:
+	  list_def_glob def_glob
+	| def_glob;
+def_glob:
+	  TK_PR_STATIC dec
+	| dec
+	| func;
 
-list_ident:	list_ident ',' TK_IDENTIFICADOR
-		| TK_IDENTIFICADOR;
+list_ident:
+	  list_ident ',' TK_IDENTIFICADOR
+	| TK_IDENTIFICADOR;
 
-type:		TK_PR_INT
-		| TK_PR_FLOAT
-		| TK_PR_BOOL
-		| TK_PR_CHAR
-		| TK_PR_STRING;
+type:
+	  TK_PR_INT
+	| TK_PR_FLOAT
+	| TK_PR_BOOL
+	| TK_PR_CHAR
+	| TK_PR_STRING;
 
-lit_var:	lit_arit
-		| lit_log
-		| TK_LIT_CHAR
-		| TK_LIT_STRING;
-lit_arit:	TK_LIT_INT
-		| TK_LIT_FLOAT;
-lit_log:	TK_LIT_FALSE
-		| TK_LIT_TRUE;
+lit_var:
+	  lit_arit
+	| lit_log
+	| TK_LIT_CHAR
+	| TK_LIT_STRING;
+lit_arit:
+	  TK_LIT_INT
+	| TK_LIT_FLOAT;
+lit_log:
+	  TK_LIT_FALSE
+	| TK_LIT_TRUE;
 
 // DECLARACOES
-dec:		dec_not_vet ';'
-		| dec_vet ';';
-dec_not_vet:	type list_ident;
-dec_vet:	dec_not_vet '[' TK_LIT_INT ']';
+dec:
+	  dec_not_vet ';'
+	| dec_vet ';';
+dec_not_vet:
+	  type list_ident;
+dec_vet:
+	  dec_not_vet '[' TK_LIT_INT ']';
 
-stat_const:	TK_PR_STATIC TK_PR_CONST
-		| TK_PR_STATIC
-		| TK_PR_CONST;
+stat_const:
+	  TK_PR_STATIC TK_PR_CONST
+	| TK_PR_STATIC
+	| TK_PR_CONST;
 
 // FUNCOES
-func:		TK_PR_STATIC type TK_IDENTIFICADOR list_param bloco_comandos
-		| type TK_IDENTIFICADOR list_param bloco_comandos
-param:		type TK_IDENTIFICADOR
-		| TK_PR_CONST type TK_IDENTIFICADOR;
-list_param:	'('list_param_rec')'
-		| '(' ')';
-list_param_rec:	list_param_rec ',' param
-		| param;
+func:
+	  TK_PR_STATIC type TK_IDENTIFICADOR list_param bloco_comandos
+	| type TK_IDENTIFICADOR list_param bloco_comandos
+param:
+	  type TK_IDENTIFICADOR
+	| TK_PR_CONST type TK_IDENTIFICADOR;
+list_param:
+	  '('list_param_rec')'
+	| '(' ')';
+list_param_rec:
+	  list_param_rec ',' param
+	| param;
 
 // BLOCO DE COMANDOS
-bloco_comandos:	'{' bloco_com_req'}'
-		|'{' '}';
-bloco_com_req:	bloco_com_req comando
-		| comando;
-comando:	dec_var_loc ';' | dec_var_loc_at ';' | atrib ';'| cont_flux | cham_func ';' | ret_break_cont ';' | op_entr ';' | op_saida ';' | shift ';';
-dec_var_loc:	stat_const type TK_IDENTIFICADOR
-		| type TK_IDENTIFICADOR;
+bloco_comandos:
+	  '{' bloco_com_req'}'
+	| '{' '}';
+bloco_com_req:
+	  bloco_com_req comando
+	| comando;
+comando:
+	  dec_var_loc ';' | dec_var_loc_at ';' | atrib ';'| cont_flux | cham_func ';' | ret_break_cont ';' | op_entr ';' | op_saida ';' | shift ';';
+dec_var_loc:
+	  stat_const type TK_IDENTIFICADOR
+	| type TK_IDENTIFICADOR;
 
-dec_var_loc_at:	type TK_IDENTIFICADOR TK_OC_LE lit_var
-		| type TK_IDENTIFICADOR TK_OC_LE TK_IDENTIFICADOR
-		| stat_const type TK_IDENTIFICADOR TK_OC_LE lit_var
-		| stat_const type TK_IDENTIFICADOR TK_OC_LE TK_IDENTIFICADOR;
+dec_var_loc_at:
+	  type TK_IDENTIFICADOR TK_OC_LE lit_var
+	| type TK_IDENTIFICADOR TK_OC_LE TK_IDENTIFICADOR
+	| stat_const type TK_IDENTIFICADOR TK_OC_LE lit_var
+	| stat_const type TK_IDENTIFICADOR TK_OC_LE TK_IDENTIFICADOR;
 
-atrib:		TK_IDENTIFICADOR '=' expr
-		| TK_IDENTIFICADOR '[' expr ']' '=' expr;
+atrib:
+	  TK_IDENTIFICADOR '=' expr
+	| TK_IDENTIFICADOR '[' expr ']' '=' expr;
 
-cham_func:	TK_IDENTIFICADOR args;
-args:		'(' args_req ')'
-		|'(' ')';
-args_req:	args_req ',' expr
-		| expr;
+cham_func:
+	  TK_IDENTIFICADOR args;
+args:
+	  '(' args_req ')'
+	| '(' ')';
+args_req:
+	  args_req ',' expr
+	| expr;
 
-ret_break_cont:	TK_PR_RETURN expr
-		| TK_PR_BREAK
-		| TK_PR_CONTINUE;
+ret_break_cont:
+	  TK_PR_RETURN expr
+	| TK_PR_BREAK
+	| TK_PR_CONTINUE;
 
-op_entr:	TK_PR_INPUT TK_IDENTIFICADOR;
-op_saida:	TK_PR_OUTPUT TK_IDENTIFICADOR
-		| TK_PR_OUTPUT lit_var;
+op_entr:	
+	  TK_PR_INPUT TK_IDENTIFICADOR;
+op_saida:
+	  TK_PR_OUTPUT TK_IDENTIFICADOR
+	| TK_PR_OUTPUT lit_var;
 
-shift:		TK_IDENTIFICADOR shift_OC TK_LIT_INT;
-		| TK_IDENTIFICADOR '[' expr ']' shift_OC TK_LIT_INT;
-shift_OC:	TK_OC_SR
-		| TK_OC_SL;
+shift:
+	  TK_IDENTIFICADOR shift_OC TK_LIT_INT;
+	| TK_IDENTIFICADOR '[' expr ']' shift_OC TK_LIT_INT;
+shift_OC:
+	  TK_OC_SR
+	| TK_OC_SL;
 
-cont_flux:	if_then_else;// | for | while;
-if_then_else:	if;// then else
-if:		TK_PR_IF '(' expr ')' bloco_comandos;
+cont_flux:
+	  if_then_else;// | for | while;
+//if_no_else:		
+if_then_else:
+	  if | else;
+if:
+	  TK_PR_IF '(' expr ')' bloco_comandos;
+else:
+	 TK_PR_ELSE '(' expr ')' bloco_comandos;
 
 
 // EXPRESSOES - NAO TERMINADO!!!!
-expr:		expr_arit
-		| expr_log;
-expr_arit:	TK_IDENTIFICADOR
-		| TK_IDENTIFICADOR '[' expr ']'
-		| lit_arit;
-//		| CHAMADA DE FUNCAO
-expr_log:	lit_log;
-//		| OPERADORES RELACIONAIS
+expr:
+	  expr_arit
+	| expr_log;
+expr_arit:
+	  TK_IDENTIFICADOR
+	| TK_IDENTIFICADOR '[' expr ']'
+	| lit_arit;
+//	| CHAMADA DE FUNCAO
+expr_log:
+	  lit_log;
+//	| OPERADORES RELACIONAIS
 
 %%
 
