@@ -111,7 +111,7 @@ bloco_comandos:	'{' bloco_com_req'}'
 		|'{' '}';
 bloco_com_req:	bloco_com_req comando
 		| comando;
-comando:	dec_var_loc ';' | dec_var_loc_at ';' | atrib ';'| cont_flux | cham_func | ret_break_cont | op_entr | op_saida;
+comando:	dec_var_loc ';' | dec_var_loc_at ';' | atrib ';'| cont_flux | cham_func ';' | ret_break_cont ';' | op_entr ';' | op_saida ';' | shift ';';
 dec_var_loc:	stat_const type TK_IDENTIFICADOR
 		| type TK_IDENTIFICADOR;
 
@@ -121,21 +121,26 @@ dec_var_loc_at:	type TK_IDENTIFICADOR TK_OC_LE lit_var
 		| stat_const type TK_IDENTIFICADOR TK_OC_LE TK_IDENTIFICADOR;
 
 atrib:		TK_IDENTIFICADOR '=' expr
-		| TK_IDENTIFICADOR '[' TK_LIT_INT ']' '=' expr;
+		| TK_IDENTIFICADOR '[' expr ']' '=' expr;
 
-cham_func:	TK_IDENTIFICADOR args ';';
+cham_func:	TK_IDENTIFICADOR args;
 args:		'(' args_req ')'
 		|'(' ')';
 args_req:	args_req ',' expr
 		| expr;
 
-ret_break_cont:	TK_PR_RETURN expr ';'
-		| TK_PR_BREAK ';'
-		| TK_PR_CONTINUE ';';
+ret_break_cont:	TK_PR_RETURN expr
+		| TK_PR_BREAK
+		| TK_PR_CONTINUE;
 
-op_entr:	TK_PR_INPUT TK_IDENTIFICADOR ';';
-op_saida:	TK_PR_OUTPUT TK_IDENTIFICADOR ';'
-		| TK_PR_OUTPUT lit_var ';';
+op_entr:	TK_PR_INPUT TK_IDENTIFICADOR;
+op_saida:	TK_PR_OUTPUT TK_IDENTIFICADOR
+		| TK_PR_OUTPUT lit_var;
+
+shift:		TK_IDENTIFICADOR shift_OC TK_LIT_INT;
+		| TK_IDENTIFICADOR '[' expr ']' shift_OC TK_LIT_INT;
+shift_OC:	TK_OC_SR
+		| TK_OC_SL;
 
 cont_flux:	if_then_else;// | for | while;
 if_then_else:	if;// then else
