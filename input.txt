@@ -1,17 +1,61 @@
-2
-25
-25.2
-'a'
-' '
-true
-false
-test
-.5
+int a;
+int a, b, c;
+int a[5467];
+static int a;
+static int a, b;
+static int a[5467];
 
-// this is a comment
+float a;
+float a, b;
+float a[5467];
+static float a;
+static float a, b;
+static float a[5467];
 
-/*
+bool a;
+bool a, b;
+bool a[5467];
+static bool a;
+static bool a, b;
+static bool a[5467];
 
-*/
+char a;
+char a, b;
+char a[5467];
+static char a;
+static char a, b;
+static char a[5467];
 
-2
+string a;
+string a, b;
+string a[5467];
+static string a;
+static string a, b;
+static string a[5467];
+
+int a_b;
+
+float func (int a){
+}
+float func (){
+}
+float func (int a, int b){
+}
+static float func (const int a){
+}
+static float func (){
+}
+static float func (const int a, const int b){
+}
+static float func (const int a, int b){
+	static const int a;
+}
+float func (const int a, int b){
+	const int a;
+	static bool b;
+	string str;
+	int c <= a;
+	int c <= false;
+	bool c <= false;
+}
+

@@ -1,5 +1,5 @@
 %{
-#include "tokens.h"
+#include "parser.tab.h"
 int lineNumber = 1;
 %}
 
@@ -19,7 +19,7 @@ lit_s \".*\"
 
 %x B_COMM
 line_comm \/\/.*
-ignore [" ""\r"]|{line_comm}
+ignore [" ""\r""\t"]|{line_comm}
 
 
 %%
@@ -67,6 +67,7 @@ default      { return TK_PR_DEFAULT; }
 {lit_c}      { return TK_LIT_CHAR; }
 {lit_s}      { return TK_LIT_STRING; }
 {ident}      { return TK_IDENTIFICADOR; }
+<<EOF>>      { return TK_EOF; }
 
 "/*"         { BEGIN(B_COMM); }
 <B_COMM>"*/" { BEGIN(INITIAL); }

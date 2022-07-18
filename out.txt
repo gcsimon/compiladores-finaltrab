@@ -1,0 +1,1120 @@
+Terminals unused in grammar
+
+    TK_PR_IF
+    TK_PR_THEN
+    TK_PR_ELSE
+    TK_PR_WHILE
+    TK_PR_DO
+    TK_PR_INPUT
+    TK_PR_OUTPUT
+    TK_PR_RETURN
+    TK_PR_FOREACH
+    TK_PR_FOR
+    TK_PR_SWITCH
+    TK_PR_CASE
+    TK_PR_BREAK
+    TK_PR_CONTINUE
+    TK_PR_CLASS
+    TK_PR_PRIVATE
+    TK_PR_PUBLIC
+    TK_PR_PROTECTED
+    TK_PR_END
+    TK_PR_DEFAULT
+    TK_OC_LE
+    TK_OC_GE
+    TK_OC_EQ
+    TK_OC_NE
+    TK_OC_AND
+    TK_OC_OR
+    TK_OC_SL
+    TK_OC_SR
+    TK_LIT_FLOAT
+    TK_LIT_FALSE
+    TK_LIT_TRUE
+    TK_LIT_CHAR
+    TK_LIT_STRING
+    TOKEN_ERRO
+
+
+Grammar
+
+    0 $accept: programa TK_EOF
+
+    1 programa: TK_EOF
+    2         | list_def_glob
+
+    3 list_def_glob: list_def_glob def_glob
+    4              | def_glob
+
+    5 def_glob: TK_PR_STATIC dec
+    6         | dec
+    7         | func
+
+    8 list_ident: list_ident ',' TK_IDENTIFICADOR
+    9           | TK_IDENTIFICADOR
+
+   10 dec: dec_not_vet ';'
+   11    | dec_vet ';'
+
+   12 dec_not_vet: dec_int
+   13            | dec_float
+   14            | dec_bool
+   15            | dec_char
+   16            | dec_string
+
+   17 dec_int: TK_PR_INT list_ident
+
+   18 dec_float: TK_PR_FLOAT list_ident
+
+   19 dec_bool: TK_PR_BOOL list_ident
+
+   20 dec_char: TK_PR_CHAR list_ident
+
+   21 dec_string: TK_PR_STRING list_ident
+
+   22 dec_vet: dec_not_vet '[' TK_LIT_INT ']'
+
+   23 func: TK_PR_STATIC dec_not_vet '(' list_param ')' '{' '}'
+   24     | dec_not_vet '(' list_param ')' '{' '}'
+   25     | TK_PR_STATIC dec_not_vet '(' ')' '{' '}'
+   26     | dec_not_vet '(' ')' '{' '}'
+   27     | TK_PR_STATIC dec_not_vet '(' list_param ')' '{' bloco_comandos '}'
+   28     | dec_not_vet '(' list_param ')' '{' bloco_comandos '}'
+   29     | TK_PR_STATIC dec_not_vet '(' ')' '{' bloco_comandos '}'
+   30     | dec_not_vet '(' ')' '{' bloco_comandos '}'
+
+   31 type: TK_PR_INT
+   32     | TK_PR_FLOAT
+   33     | TK_PR_BOOL
+   34     | TK_PR_CHAR
+   35     | TK_PR_STRING
+
+   36 param: type TK_IDENTIFICADOR
+   37      | TK_PR_CONST type TK_IDENTIFICADOR
+
+   38 list_param: list_param ',' param
+   39           | param
+
+   40 bloco_comandos: bloco_comandos comando ';'
+   41               | comando ';'
+
+   42 comando: dec_var_loc
+
+   43 dec_var_loc: TK_PR_STATIC TK_PR_CONST type TK_IDENTIFICADOR
+   44            | TK_PR_STATIC type TK_IDENTIFICADOR
+   45            | TK_PR_CONST type TK_IDENTIFICADOR
+   46            | type TK_IDENTIFICADOR
+
+
+Terminals, with rules where they appear
+
+    TK_EOF (0) 0 1
+    '(' (40) 23 24 25 26 27 28 29 30
+    ')' (41) 23 24 25 26 27 28 29 30
+    ',' (44) 8 38
+    ';' (59) 10 11 40 41
+    '[' (91) 22
+    ']' (93) 22
+    '{' (123) 23 24 25 26 27 28 29 30
+    '}' (125) 23 24 25 26 27 28 29 30
+    error (256)
+    TK_PR_INT (258) 17 31
+    TK_PR_FLOAT (259) 18 32
+    TK_PR_BOOL (260) 19 33
+    TK_PR_CHAR (261) 20 34
+    TK_PR_STRING (262) 21 35
+    TK_PR_IF (263)
+    TK_PR_THEN (264)
+    TK_PR_ELSE (265)
+    TK_PR_WHILE (266)
+    TK_PR_DO (267)
+    TK_PR_INPUT (268)
+    TK_PR_OUTPUT (269)
+    TK_PR_RETURN (270)
+    TK_PR_CONST (271) 37 43 45
+    TK_PR_STATIC (272) 5 23 25 27 29 43 44
+    TK_PR_FOREACH (273)
+    TK_PR_FOR (274)
+    TK_PR_SWITCH (275)
+    TK_PR_CASE (276)
+    TK_PR_BREAK (277)
+    TK_PR_CONTINUE (278)
+    TK_PR_CLASS (279)
+    TK_PR_PRIVATE (280)
+    TK_PR_PUBLIC (281)
+    TK_PR_PROTECTED (282)
+    TK_PR_END (283)
+    TK_PR_DEFAULT (284)
+    TK_OC_LE (285)
+    TK_OC_GE (286)
+    TK_OC_EQ (287)
+    TK_OC_NE (288)
+    TK_OC_AND (289)
+    TK_OC_OR (290)
+    TK_OC_SL (291)
+    TK_OC_SR (292)
+    TK_LIT_INT (293) 22
+    TK_LIT_FLOAT (294)
+    TK_LIT_FALSE (295)
+    TK_LIT_TRUE (296)
+    TK_LIT_CHAR (297)
+    TK_LIT_STRING (298)
+    TK_IDENTIFICADOR (299) 8 9 36 37 43 44 45 46
+    TOKEN_ERRO (300)
+
+
+Nonterminals, with rules where they appear
+
+    $accept (54)
+        on left: 0
+    programa (55)
+        on left: 1 2
+        on right: 0
+    list_def_glob (56)
+        on left: 3 4
+        on right: 2 3
+    def_glob (57)
+        on left: 5 6 7
+        on right: 3 4
+    list_ident (58)
+        on left: 8 9
+        on right: 8 17 18 19 20 21
+    dec (59)
+        on left: 10 11
+        on right: 5 6
+    dec_not_vet (60)
+        on left: 12 13 14 15 16
+        on right: 10 22 23 24 25 26 27 28 29 30
+    dec_int (61)
+        on left: 17
+        on right: 12
+    dec_float (62)
+        on left: 18
+        on right: 13
+    dec_bool (63)
+        on left: 19
+        on right: 14
+    dec_char (64)
+        on left: 20
+        on right: 15
+    dec_string (65)
+        on left: 21
+        on right: 16
+    dec_vet (66)
+        on left: 22
+        on right: 11
+    func (67)
+        on left: 23 24 25 26 27 28 29 30
+        on right: 7
+    type (68)
+        on left: 31 32 33 34 35
+        on right: 36 37 43 44 45 46
+    param (69)
+        on left: 36 37
+        on right: 38 39
+    list_param (70)
+        on left: 38 39
+        on right: 23 24 27 28 38
+    bloco_comandos (71)
+        on left: 40 41
+        on right: 27 28 29 30 40
+    comando (72)
+        on left: 42
+        on right: 40 41
+    dec_var_loc (73)
+        on left: 43 44 45 46
+        on right: 42
+
+
+State 0
+
+    0 $accept: • programa TK_EOF
+
+    TK_EOF        shift, and go to state 1
+    TK_PR_INT     shift, and go to state 2
+    TK_PR_FLOAT   shift, and go to state 3
+    TK_PR_BOOL    shift, and go to state 4
+    TK_PR_CHAR    shift, and go to state 5
+    TK_PR_STRING  shift, and go to state 6
+    TK_PR_STATIC  shift, and go to state 7
+
+    programa       go to state 8
+    list_def_glob  go to state 9
+    def_glob       go to state 10
+    dec            go to state 11
+    dec_not_vet    go to state 12
+    dec_int        go to state 13
+    dec_float      go to state 14
+    dec_bool       go to state 15
+    dec_char       go to state 16
+    dec_string     go to state 17
+    dec_vet        go to state 18
+    func           go to state 19
+
+
+State 1
+
+    1 programa: TK_EOF •
+
+    $default  reduce using rule 1 (programa)
+
+
+State 2
+
+   17 dec_int: TK_PR_INT • list_ident
+
+    TK_IDENTIFICADOR  shift, and go to state 20
+
+    list_ident  go to state 21
+
+
+State 3
+
+   18 dec_float: TK_PR_FLOAT • list_ident
+
+    TK_IDENTIFICADOR  shift, and go to state 20
+
+    list_ident  go to state 22
+
+
+State 4
+
+   19 dec_bool: TK_PR_BOOL • list_ident
+
+    TK_IDENTIFICADOR  shift, and go to state 20
+
+    list_ident  go to state 23
+
+
+State 5
+
+   20 dec_char: TK_PR_CHAR • list_ident
+
+    TK_IDENTIFICADOR  shift, and go to state 20
+
+    list_ident  go to state 24
+
+
+State 6
+
+   21 dec_string: TK_PR_STRING • list_ident
+
+    TK_IDENTIFICADOR  shift, and go to state 20
+
+    list_ident  go to state 25
+
+
+State 7
+
+    5 def_glob: TK_PR_STATIC • dec
+   23 func: TK_PR_STATIC • dec_not_vet '(' list_param ')' '{' '}'
+   25     | TK_PR_STATIC • dec_not_vet '(' ')' '{' '}'
+   27     | TK_PR_STATIC • dec_not_vet '(' list_param ')' '{' bloco_comandos '}'
+   29     | TK_PR_STATIC • dec_not_vet '(' ')' '{' bloco_comandos '}'
+
+    TK_PR_INT     shift, and go to state 2
+    TK_PR_FLOAT   shift, and go to state 3
+    TK_PR_BOOL    shift, and go to state 4
+    TK_PR_CHAR    shift, and go to state 5
+    TK_PR_STRING  shift, and go to state 6
+
+    dec          go to state 26
+    dec_not_vet  go to state 27
+    dec_int      go to state 13
+    dec_float    go to state 14
+    dec_bool     go to state 15
+    dec_char     go to state 16
+    dec_string   go to state 17
+    dec_vet      go to state 18
+
+
+State 8
+
+    0 $accept: programa • TK_EOF
+
+    TK_EOF  shift, and go to state 28
+
+
+State 9
+
+    2 programa: list_def_glob •
+    3 list_def_glob: list_def_glob • def_glob
+
+    TK_PR_INT     shift, and go to state 2
+    TK_PR_FLOAT   shift, and go to state 3
+    TK_PR_BOOL    shift, and go to state 4
+    TK_PR_CHAR    shift, and go to state 5
+    TK_PR_STRING  shift, and go to state 6
+    TK_PR_STATIC  shift, and go to state 7
+
+    $default  reduce using rule 2 (programa)
+
+    def_glob     go to state 29
+    dec          go to state 11
+    dec_not_vet  go to state 12
+    dec_int      go to state 13
+    dec_float    go to state 14
+    dec_bool     go to state 15
+    dec_char     go to state 16
+    dec_string   go to state 17
+    dec_vet      go to state 18
+    func         go to state 19
+
+
+State 10
+
+    4 list_def_glob: def_glob •
+
+    $default  reduce using rule 4 (list_def_glob)
+
+
+State 11
+
+    6 def_glob: dec •
+
+    $default  reduce using rule 6 (def_glob)
+
+
+State 12
+
+   10 dec: dec_not_vet • ';'
+   22 dec_vet: dec_not_vet • '[' TK_LIT_INT ']'
+   24 func: dec_not_vet • '(' list_param ')' '{' '}'
+   26     | dec_not_vet • '(' ')' '{' '}'
+   28     | dec_not_vet • '(' list_param ')' '{' bloco_comandos '}'
+   30     | dec_not_vet • '(' ')' '{' bloco_comandos '}'
+
+    ';'  shift, and go to state 30
+    '['  shift, and go to state 31
+    '('  shift, and go to state 32
+
+
+State 13
+
+   12 dec_not_vet: dec_int •
+
+    $default  reduce using rule 12 (dec_not_vet)
+
+
+State 14
+
+   13 dec_not_vet: dec_float •
+
+    $default  reduce using rule 13 (dec_not_vet)
+
+
+State 15
+
+   14 dec_not_vet: dec_bool •
+
+    $default  reduce using rule 14 (dec_not_vet)
+
+
+State 16
+
+   15 dec_not_vet: dec_char •
+
+    $default  reduce using rule 15 (dec_not_vet)
+
+
+State 17
+
+   16 dec_not_vet: dec_string •
+
+    $default  reduce using rule 16 (dec_not_vet)
+
+
+State 18
+
+   11 dec: dec_vet • ';'
+
+    ';'  shift, and go to state 33
+
+
+State 19
+
+    7 def_glob: func •
+
+    $default  reduce using rule 7 (def_glob)
+
+
+State 20
+
+    9 list_ident: TK_IDENTIFICADOR •
+
+    $default  reduce using rule 9 (list_ident)
+
+
+State 21
+
+    8 list_ident: list_ident • ',' TK_IDENTIFICADOR
+   17 dec_int: TK_PR_INT list_ident •
+
+    ','  shift, and go to state 34
+
+    $default  reduce using rule 17 (dec_int)
+
+
+State 22
+
+    8 list_ident: list_ident • ',' TK_IDENTIFICADOR
+   18 dec_float: TK_PR_FLOAT list_ident •
+
+    ','  shift, and go to state 34
+
+    $default  reduce using rule 18 (dec_float)
+
+
+State 23
+
+    8 list_ident: list_ident • ',' TK_IDENTIFICADOR
+   19 dec_bool: TK_PR_BOOL list_ident •
+
+    ','  shift, and go to state 34
+
+    $default  reduce using rule 19 (dec_bool)
+
+
+State 24
+
+    8 list_ident: list_ident • ',' TK_IDENTIFICADOR
+   20 dec_char: TK_PR_CHAR list_ident •
+
+    ','  shift, and go to state 34
+
+    $default  reduce using rule 20 (dec_char)
+
+
+State 25
+
+    8 list_ident: list_ident • ',' TK_IDENTIFICADOR
+   21 dec_string: TK_PR_STRING list_ident •
+
+    ','  shift, and go to state 34
+
+    $default  reduce using rule 21 (dec_string)
+
+
+State 26
+
+    5 def_glob: TK_PR_STATIC dec •
+
+    $default  reduce using rule 5 (def_glob)
+
+
+State 27
+
+   10 dec: dec_not_vet • ';'
+   22 dec_vet: dec_not_vet • '[' TK_LIT_INT ']'
+   23 func: TK_PR_STATIC dec_not_vet • '(' list_param ')' '{' '}'
+   25     | TK_PR_STATIC dec_not_vet • '(' ')' '{' '}'
+   27     | TK_PR_STATIC dec_not_vet • '(' list_param ')' '{' bloco_comandos '}'
+   29     | TK_PR_STATIC dec_not_vet • '(' ')' '{' bloco_comandos '}'
+
+    ';'  shift, and go to state 30
+    '['  shift, and go to state 31
+    '('  shift, and go to state 35
+
+
+State 28
+
+    0 $accept: programa TK_EOF •
+
+    $default  accept
+
+
+State 29
+
+    3 list_def_glob: list_def_glob def_glob •
+
+    $default  reduce using rule 3 (list_def_glob)
+
+
+State 30
+
+   10 dec: dec_not_vet ';' •
+
+    $default  reduce using rule 10 (dec)
+
+
+State 31
+
+   22 dec_vet: dec_not_vet '[' • TK_LIT_INT ']'
+
+    TK_LIT_INT  shift, and go to state 36
+
+
+State 32
+
+   24 func: dec_not_vet '(' • list_param ')' '{' '}'
+   26     | dec_not_vet '(' • ')' '{' '}'
+   28     | dec_not_vet '(' • list_param ')' '{' bloco_comandos '}'
+   30     | dec_not_vet '(' • ')' '{' bloco_comandos '}'
+
+    TK_PR_INT     shift, and go to state 37
+    TK_PR_FLOAT   shift, and go to state 38
+    TK_PR_BOOL    shift, and go to state 39
+    TK_PR_CHAR    shift, and go to state 40
+    TK_PR_STRING  shift, and go to state 41
+    TK_PR_CONST   shift, and go to state 42
+    ')'           shift, and go to state 43
+
+    type        go to state 44
+    param       go to state 45
+    list_param  go to state 46
+
+
+State 33
+
+   11 dec: dec_vet ';' •
+
+    $default  reduce using rule 11 (dec)
+
+
+State 34
+
+    8 list_ident: list_ident ',' • TK_IDENTIFICADOR
+
+    TK_IDENTIFICADOR  shift, and go to state 47
+
+
+State 35
+
+   23 func: TK_PR_STATIC dec_not_vet '(' • list_param ')' '{' '}'
+   25     | TK_PR_STATIC dec_not_vet '(' • ')' '{' '}'
+   27     | TK_PR_STATIC dec_not_vet '(' • list_param ')' '{' bloco_comandos '}'
+   29     | TK_PR_STATIC dec_not_vet '(' • ')' '{' bloco_comandos '}'
+
+    TK_PR_INT     shift, and go to state 37
+    TK_PR_FLOAT   shift, and go to state 38
+    TK_PR_BOOL    shift, and go to state 39
+    TK_PR_CHAR    shift, and go to state 40
+    TK_PR_STRING  shift, and go to state 41
+    TK_PR_CONST   shift, and go to state 42
+    ')'           shift, and go to state 48
+
+    type        go to state 44
+    param       go to state 45
+    list_param  go to state 49
+
+
+State 36
+
+   22 dec_vet: dec_not_vet '[' TK_LIT_INT • ']'
+
+    ']'  shift, and go to state 50
+
+
+State 37
+
+   31 type: TK_PR_INT •
+
+    $default  reduce using rule 31 (type)
+
+
+State 38
+
+   32 type: TK_PR_FLOAT •
+
+    $default  reduce using rule 32 (type)
+
+
+State 39
+
+   33 type: TK_PR_BOOL •
+
+    $default  reduce using rule 33 (type)
+
+
+State 40
+
+   34 type: TK_PR_CHAR •
+
+    $default  reduce using rule 34 (type)
+
+
+State 41
+
+   35 type: TK_PR_STRING •
+
+    $default  reduce using rule 35 (type)
+
+
+State 42
+
+   37 param: TK_PR_CONST • type TK_IDENTIFICADOR
+
+    TK_PR_INT     shift, and go to state 37
+    TK_PR_FLOAT   shift, and go to state 38
+    TK_PR_BOOL    shift, and go to state 39
+    TK_PR_CHAR    shift, and go to state 40
+    TK_PR_STRING  shift, and go to state 41
+
+    type  go to state 51
+
+
+State 43
+
+   26 func: dec_not_vet '(' ')' • '{' '}'
+   30     | dec_not_vet '(' ')' • '{' bloco_comandos '}'
+
+    '{'  shift, and go to state 52
+
+
+State 44
+
+   36 param: type • TK_IDENTIFICADOR
+
+    TK_IDENTIFICADOR  shift, and go to state 53
+
+
+State 45
+
+   39 list_param: param •
+
+    $default  reduce using rule 39 (list_param)
+
+
+State 46
+
+   24 func: dec_not_vet '(' list_param • ')' '{' '}'
+   28     | dec_not_vet '(' list_param • ')' '{' bloco_comandos '}'
+   38 list_param: list_param • ',' param
+
+    ','  shift, and go to state 54
+    ')'  shift, and go to state 55
+
+
+State 47
+
+    8 list_ident: list_ident ',' TK_IDENTIFICADOR •
+
+    $default  reduce using rule 8 (list_ident)
+
+
+State 48
+
+   25 func: TK_PR_STATIC dec_not_vet '(' ')' • '{' '}'
+   29     | TK_PR_STATIC dec_not_vet '(' ')' • '{' bloco_comandos '}'
+
+    '{'  shift, and go to state 56
+
+
+State 49
+
+   23 func: TK_PR_STATIC dec_not_vet '(' list_param • ')' '{' '}'
+   27     | TK_PR_STATIC dec_not_vet '(' list_param • ')' '{' bloco_comandos '}'
+   38 list_param: list_param • ',' param
+
+    ','  shift, and go to state 54
+    ')'  shift, and go to state 57
+
+
+State 50
+
+   22 dec_vet: dec_not_vet '[' TK_LIT_INT ']' •
+
+    $default  reduce using rule 22 (dec_vet)
+
+
+State 51
+
+   37 param: TK_PR_CONST type • TK_IDENTIFICADOR
+
+    TK_IDENTIFICADOR  shift, and go to state 58
+
+
+State 52
+
+   26 func: dec_not_vet '(' ')' '{' • '}'
+   30     | dec_not_vet '(' ')' '{' • bloco_comandos '}'
+
+    TK_PR_INT     shift, and go to state 37
+    TK_PR_FLOAT   shift, and go to state 38
+    TK_PR_BOOL    shift, and go to state 39
+    TK_PR_CHAR    shift, and go to state 40
+    TK_PR_STRING  shift, and go to state 41
+    TK_PR_CONST   shift, and go to state 59
+    TK_PR_STATIC  shift, and go to state 60
+    '}'           shift, and go to state 61
+
+    type            go to state 62
+    bloco_comandos  go to state 63
+    comando         go to state 64
+    dec_var_loc     go to state 65
+
+
+State 53
+
+   36 param: type TK_IDENTIFICADOR •
+
+    $default  reduce using rule 36 (param)
+
+
+State 54
+
+   38 list_param: list_param ',' • param
+
+    TK_PR_INT     shift, and go to state 37
+    TK_PR_FLOAT   shift, and go to state 38
+    TK_PR_BOOL    shift, and go to state 39
+    TK_PR_CHAR    shift, and go to state 40
+    TK_PR_STRING  shift, and go to state 41
+    TK_PR_CONST   shift, and go to state 42
+
+    type   go to state 44
+    param  go to state 66
+
+
+State 55
+
+   24 func: dec_not_vet '(' list_param ')' • '{' '}'
+   28     | dec_not_vet '(' list_param ')' • '{' bloco_comandos '}'
+
+    '{'  shift, and go to state 67
+
+
+State 56
+
+   25 func: TK_PR_STATIC dec_not_vet '(' ')' '{' • '}'
+   29     | TK_PR_STATIC dec_not_vet '(' ')' '{' • bloco_comandos '}'
+
+    TK_PR_INT     shift, and go to state 37
+    TK_PR_FLOAT   shift, and go to state 38
+    TK_PR_BOOL    shift, and go to state 39
+    TK_PR_CHAR    shift, and go to state 40
+    TK_PR_STRING  shift, and go to state 41
+    TK_PR_CONST   shift, and go to state 59
+    TK_PR_STATIC  shift, and go to state 60
+    '}'           shift, and go to state 68
+
+    type            go to state 62
+    bloco_comandos  go to state 69
+    comando         go to state 64
+    dec_var_loc     go to state 65
+
+
+State 57
+
+   23 func: TK_PR_STATIC dec_not_vet '(' list_param ')' • '{' '}'
+   27     | TK_PR_STATIC dec_not_vet '(' list_param ')' • '{' bloco_comandos '}'
+
+    '{'  shift, and go to state 70
+
+
+State 58
+
+   37 param: TK_PR_CONST type TK_IDENTIFICADOR •
+
+    $default  reduce using rule 37 (param)
+
+
+State 59
+
+   45 dec_var_loc: TK_PR_CONST • type TK_IDENTIFICADOR
+
+    TK_PR_INT     shift, and go to state 37
+    TK_PR_FLOAT   shift, and go to state 38
+    TK_PR_BOOL    shift, and go to state 39
+    TK_PR_CHAR    shift, and go to state 40
+    TK_PR_STRING  shift, and go to state 41
+
+    type  go to state 71
+
+
+State 60
+
+   43 dec_var_loc: TK_PR_STATIC • TK_PR_CONST type TK_IDENTIFICADOR
+   44            | TK_PR_STATIC • type TK_IDENTIFICADOR
+
+    TK_PR_INT     shift, and go to state 37
+    TK_PR_FLOAT   shift, and go to state 38
+    TK_PR_BOOL    shift, and go to state 39
+    TK_PR_CHAR    shift, and go to state 40
+    TK_PR_STRING  shift, and go to state 41
+    TK_PR_CONST   shift, and go to state 72
+
+    type  go to state 73
+
+
+State 61
+
+   26 func: dec_not_vet '(' ')' '{' '}' •
+
+    $default  reduce using rule 26 (func)
+
+
+State 62
+
+   46 dec_var_loc: type • TK_IDENTIFICADOR
+
+    TK_IDENTIFICADOR  shift, and go to state 74
+
+
+State 63
+
+   30 func: dec_not_vet '(' ')' '{' bloco_comandos • '}'
+   40 bloco_comandos: bloco_comandos • comando ';'
+
+    TK_PR_INT     shift, and go to state 37
+    TK_PR_FLOAT   shift, and go to state 38
+    TK_PR_BOOL    shift, and go to state 39
+    TK_PR_CHAR    shift, and go to state 40
+    TK_PR_STRING  shift, and go to state 41
+    TK_PR_CONST   shift, and go to state 59
+    TK_PR_STATIC  shift, and go to state 60
+    '}'           shift, and go to state 75
+
+    type         go to state 62
+    comando      go to state 76
+    dec_var_loc  go to state 65
+
+
+State 64
+
+   41 bloco_comandos: comando • ';'
+
+    ';'  shift, and go to state 77
+
+
+State 65
+
+   42 comando: dec_var_loc •
+
+    $default  reduce using rule 42 (comando)
+
+
+State 66
+
+   38 list_param: list_param ',' param •
+
+    $default  reduce using rule 38 (list_param)
+
+
+State 67
+
+   24 func: dec_not_vet '(' list_param ')' '{' • '}'
+   28     | dec_not_vet '(' list_param ')' '{' • bloco_comandos '}'
+
+    TK_PR_INT     shift, and go to state 37
+    TK_PR_FLOAT   shift, and go to state 38
+    TK_PR_BOOL    shift, and go to state 39
+    TK_PR_CHAR    shift, and go to state 40
+    TK_PR_STRING  shift, and go to state 41
+    TK_PR_CONST   shift, and go to state 59
+    TK_PR_STATIC  shift, and go to state 60
+    '}'           shift, and go to state 78
+
+    type            go to state 62
+    bloco_comandos  go to state 79
+    comando         go to state 64
+    dec_var_loc     go to state 65
+
+
+State 68
+
+   25 func: TK_PR_STATIC dec_not_vet '(' ')' '{' '}' •
+
+    $default  reduce using rule 25 (func)
+
+
+State 69
+
+   29 func: TK_PR_STATIC dec_not_vet '(' ')' '{' bloco_comandos • '}'
+   40 bloco_comandos: bloco_comandos • comando ';'
+
+    TK_PR_INT     shift, and go to state 37
+    TK_PR_FLOAT   shift, and go to state 38
+    TK_PR_BOOL    shift, and go to state 39
+    TK_PR_CHAR    shift, and go to state 40
+    TK_PR_STRING  shift, and go to state 41
+    TK_PR_CONST   shift, and go to state 59
+    TK_PR_STATIC  shift, and go to state 60
+    '}'           shift, and go to state 80
+
+    type         go to state 62
+    comando      go to state 76
+    dec_var_loc  go to state 65
+
+
+State 70
+
+   23 func: TK_PR_STATIC dec_not_vet '(' list_param ')' '{' • '}'
+   27     | TK_PR_STATIC dec_not_vet '(' list_param ')' '{' • bloco_comandos '}'
+
+    TK_PR_INT     shift, and go to state 37
+    TK_PR_FLOAT   shift, and go to state 38
+    TK_PR_BOOL    shift, and go to state 39
+    TK_PR_CHAR    shift, and go to state 40
+    TK_PR_STRING  shift, and go to state 41
+    TK_PR_CONST   shift, and go to state 59
+    TK_PR_STATIC  shift, and go to state 60
+    '}'           shift, and go to state 81
+
+    type            go to state 62
+    bloco_comandos  go to state 82
+    comando         go to state 64
+    dec_var_loc     go to state 65
+
+
+State 71
+
+   45 dec_var_loc: TK_PR_CONST type • TK_IDENTIFICADOR
+
+    TK_IDENTIFICADOR  shift, and go to state 83
+
+
+State 72
+
+   43 dec_var_loc: TK_PR_STATIC TK_PR_CONST • type TK_IDENTIFICADOR
+
+    TK_PR_INT     shift, and go to state 37
+    TK_PR_FLOAT   shift, and go to state 38
+    TK_PR_BOOL    shift, and go to state 39
+    TK_PR_CHAR    shift, and go to state 40
+    TK_PR_STRING  shift, and go to state 41
+
+    type  go to state 84
+
+
+State 73
+
+   44 dec_var_loc: TK_PR_STATIC type • TK_IDENTIFICADOR
+
+    TK_IDENTIFICADOR  shift, and go to state 85
+
+
+State 74
+
+   46 dec_var_loc: type TK_IDENTIFICADOR •
+
+    $default  reduce using rule 46 (dec_var_loc)
+
+
+State 75
+
+   30 func: dec_not_vet '(' ')' '{' bloco_comandos '}' •
+
+    $default  reduce using rule 30 (func)
+
+
+State 76
+
+   40 bloco_comandos: bloco_comandos comando • ';'
+
+    ';'  shift, and go to state 86
+
+
+State 77
+
+   41 bloco_comandos: comando ';' •
+
+    $default  reduce using rule 41 (bloco_comandos)
+
+
+State 78
+
+   24 func: dec_not_vet '(' list_param ')' '{' '}' •
+
+    $default  reduce using rule 24 (func)
+
+
+State 79
+
+   28 func: dec_not_vet '(' list_param ')' '{' bloco_comandos • '}'
+   40 bloco_comandos: bloco_comandos • comando ';'
+
+    TK_PR_INT     shift, and go to state 37
+    TK_PR_FLOAT   shift, and go to state 38
+    TK_PR_BOOL    shift, and go to state 39
+    TK_PR_CHAR    shift, and go to state 40
+    TK_PR_STRING  shift, and go to state 41
+    TK_PR_CONST   shift, and go to state 59
+    TK_PR_STATIC  shift, and go to state 60
+    '}'           shift, and go to state 87
+
+    type         go to state 62
+    comando      go to state 76
+    dec_var_loc  go to state 65
+
+
+State 80
+
+   29 func: TK_PR_STATIC dec_not_vet '(' ')' '{' bloco_comandos '}' •
+
+    $default  reduce using rule 29 (func)
+
+
+State 81
+
+   23 func: TK_PR_STATIC dec_not_vet '(' list_param ')' '{' '}' •
+
+    $default  reduce using rule 23 (func)
+
+
+State 82
+
+   27 func: TK_PR_STATIC dec_not_vet '(' list_param ')' '{' bloco_comandos • '}'
+   40 bloco_comandos: bloco_comandos • comando ';'
+
+    TK_PR_INT     shift, and go to state 37
+    TK_PR_FLOAT   shift, and go to state 38
+    TK_PR_BOOL    shift, and go to state 39
+    TK_PR_CHAR    shift, and go to state 40
+    TK_PR_STRING  shift, and go to state 41
+    TK_PR_CONST   shift, and go to state 59
+    TK_PR_STATIC  shift, and go to state 60
+    '}'           shift, and go to state 88
+
+    type         go to state 62
+    comando      go to state 76
+    dec_var_loc  go to state 65
+
+
+State 83
+
+   45 dec_var_loc: TK_PR_CONST type TK_IDENTIFICADOR •
+
+    $default  reduce using rule 45 (dec_var_loc)
+
+
+State 84
+
+   43 dec_var_loc: TK_PR_STATIC TK_PR_CONST type • TK_IDENTIFICADOR
+
+    TK_IDENTIFICADOR  shift, and go to state 89
+
+
+State 85
+
+   44 dec_var_loc: TK_PR_STATIC type TK_IDENTIFICADOR •
+
+    $default  reduce using rule 44 (dec_var_loc)
+
+
+State 86
+
+   40 bloco_comandos: bloco_comandos comando ';' •
+
+    $default  reduce using rule 40 (bloco_comandos)
+
+
+State 87
+
+   28 func: dec_not_vet '(' list_param ')' '{' bloco_comandos '}' •
+
+    $default  reduce using rule 28 (func)
+
+
+State 88
+
+   27 func: TK_PR_STATIC dec_not_vet '(' list_param ')' '{' bloco_comandos '}' •
+
+    $default  reduce using rule 27 (func)
+
+
+State 89
+
+   43 dec_var_loc: TK_PR_STATIC TK_PR_CONST type TK_IDENTIFICADOR •
+
+    $default  reduce using rule 43 (dec_var_loc)
