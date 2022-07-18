@@ -87,6 +87,19 @@ float func (const int a, int b){
 	else(true){
 		char a <= 'b';
 	}
+
+	for (a=50: true: a=1){
+	}
+	while(false){
+	}
+	for (a=50: true: a=1){
+		teste = 50;
+		string b <= "string b";
+	}
+	while(false){
+		teste = 50;
+		string b <= "string b";
+	}
 	
 	break;
 	continue;

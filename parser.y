@@ -173,14 +173,21 @@ shift_OC:
 	| TK_OC_SL;
 
 cont_flux:
-	  if_then_else;// | for | while;
-//if_no_else:		
-if_then_else:
-	  if | else;
+	  if_else_opt | for | while;
+
+if_else_opt:
+	  if
+	| if else;
 if:
 	  TK_PR_IF '(' expr ')' bloco_comandos;
 else:
-	 TK_PR_ELSE '(' expr ')' bloco_comandos;
+	  TK_PR_ELSE '(' expr ')' bloco_comandos;
+
+for:
+	  TK_PR_FOR '(' atrib ':' expr ':' atrib ')' bloco_comandos;
+
+while:
+	  TK_PR_WHILE '(' expr ')' bloco_comandos;
 
 
 // EXPRESSOES - NAO TERMINADO!!!!
