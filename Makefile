@@ -4,4 +4,4 @@ etapa2:
 	gcc lex.yy.c parser.tab.c main.c -o etapa2
 
 clean:
-	rm -rf etapa2 flex.yy.c parser.tab.c parser.tab.h
+	rm -rf etapa2 flex.yy.c parser.tab.c parser.tab.h out.txt
