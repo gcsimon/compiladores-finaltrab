@@ -1,15 +1,13 @@
 %{
 #include "parser.tab.h"
 int lineNumber = 1;
-// TODO: Nao funciona com o + por causa da soma
 %}
 
-op_simp [\,\;\:\(\)\[\]\{\}\+\-\|\*\/\<\>\=\!\&\%\#\^\.\$]
+op_simp [\,\;\:\(\)\[\]\{\}\+\-\|\*\/\<\>\=\!\&\%\#\^\.\$\?]
 char_uc [A-Z]
 char_lc [a-z]
 alfab {char_uc}|{char_lc}|_
 dig [0-9]
-sig \-|\+
 
 ident {alfab}({alfab}|{dig})*
 lit_i {dig}+
@@ -25,16 +23,16 @@ ignore [" ""\r""\t"]|{line_comm}
 
 %%
 
-{op_simp}    { return yytext[0]; }
-int          { return TK_PR_INT; }
-float        { return TK_PR_FLOAT; }
-bool         { return TK_PR_BOOL; }
-char         { return TK_PR_CHAR; }
-string       { return TK_PR_STRING; }
-if           { return TK_PR_IF; }
-then         { return TK_PR_THEN; }
-else         { return TK_PR_ELSE; }
-while        { return TK_PR_WHILE; } 
+{op_simp}    {  return yytext[0]; }
+int          {  return TK_PR_INT; }
+float        {  return TK_PR_FLOAT; }
+bool         {  return TK_PR_BOOL; }
+char         {  return TK_PR_CHAR; }
+string       {  return TK_PR_STRING; }
+if           {  return TK_PR_IF; }
+then         {  return TK_PR_THEN; }
+else         {  return TK_PR_ELSE; }
+while        {  return TK_PR_WHILE; } 
 do           { return TK_PR_DO; }
 input        { return TK_PR_INPUT; }
 output       { return TK_PR_OUTPUT; }
@@ -61,13 +59,13 @@ default      { return TK_PR_DEFAULT; }
 "||"         { return TK_OC_OR; }
 ">>"         { return TK_OC_SL; }
 "<<"         { return TK_OC_SR; }
-{lit_i}      { return TK_LIT_INT; }
-{lit_f}      { return TK_LIT_FLOAT; }
-"false"      { return TK_LIT_FALSE; }
-"true"       { return TK_LIT_TRUE; }
+{lit_i}      {  return TK_LIT_INT; }
+{lit_f}      {  return TK_LIT_FLOAT; }
+"false"      {  return TK_LIT_FALSE; }
+"true"       {  return TK_LIT_TRUE; }
 {lit_c}      { return TK_LIT_CHAR; }
 {lit_s}      { return TK_LIT_STRING; }
-{ident}      { return TK_IDENTIFICADOR; }
+{ident}      {  return TK_IDENTIFICADOR; }
 <<EOF>>      { return TK_EOF; }
 
 "/*"         { BEGIN(B_COMM); }

@@ -192,22 +192,23 @@ while:
 
 // EXPRESSOES - NAO TERMINADO!!!!
 expr:
-	  expr op_bin exprs
+	  expr_rec
+	| expr_rec '?' expr_rec ':' expr_rec;
+expr_rec:
+	  expr_rec op_bin op_un exprs
+	| expr_rec op_bin exprs
 	| exprs
 	| op_un exprs;
 exprs:
 	  TK_IDENTIFICADOR
 	| TK_IDENTIFICADOR '[' expr ']'
-	| expr_arit
-	| expr_log;
-expr_arit:
-	  lit_arit
-	| cham_func;
-expr_log:
-	  lit_log;
+	| lit_arit
+	| cham_func
+	| lit_log;
 
 op_bin:
-	  '+' | '-' | '*' | '/' | '%' | '|' | '&' | '^' | TK_OC_LE | TK_OC_GE | TK_OC_EQ | TK_OC_NE | TK_OC_AND | TK_OC_OR
+	  '+' | '-' | '*' | '/' | '%' | '|' | '&' | '^' | '>' | '<' | TK_OC_LE | TK_OC_GE | TK_OC_EQ | TK_OC_NE | TK_OC_AND
+	| TK_OC_OR
 	| TK_OC_SL | TK_OC_SR;
 
 op_un:
