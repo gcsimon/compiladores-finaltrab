@@ -1,6 +1,7 @@
 %{
 
 // Turma B
+// Grupo I
 // Giovani Chassot Simon (244113)
 // Vinicius Meirelles Pereira (285637)
 
@@ -194,7 +195,7 @@ while:
 	  TK_PR_WHILE '(' expr ')' TK_PR_DO bloco_comandos ';';
 
 
-// EXPRESSOES - NAO TERMINADO!!!!
+// EXPRESSOES
 expr:
 	  expr_rec
 	| expr_rec '?' expr_rec ':' expr_rec;
@@ -207,8 +208,7 @@ exprs:
 	  TK_IDENTIFICADOR
 	| TK_IDENTIFICADOR '[' expr ']'
 	| lit_arit
-	| cham_func
-	| lit_log;
+	| cham_func;
 
 op_bin:
 	  '+' | '-' | '*' | '/' | '%' | '|' | '&' | '^' | '>' | '<' | TK_OC_LE | TK_OC_GE | TK_OC_EQ | TK_OC_NE | TK_OC_AND

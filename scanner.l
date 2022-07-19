@@ -1,4 +1,10 @@
 %{
+
+// Turma B
+// Grupo I
+// Giovani Chassot Simon (244113)
+// Vinicius Meirelles Pereira (285637)
+
 #include "parser.tab.h"
 int lineNumber = 1;
 %}

@@ -1,3 +1,9 @@
+
+// Turma B
+// Grupo I
+// Giovani Chassot Simon (244113)
+// Vinicius Meirelles Pereira (285637)
+
 /*
 Função principal para realização da análise sintática.
 
