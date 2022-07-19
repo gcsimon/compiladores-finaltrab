@@ -1,6 +1,9 @@
 import os;
 
 test_files = os.listdir("etapa2-testcases")
+os.system("make clean")
+os.system("make")
+
 
 testcaseserrados = 0
 
