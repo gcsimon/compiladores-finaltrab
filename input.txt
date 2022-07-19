@@ -35,6 +35,19 @@ static string a[5467];
 
 int a_b;
 
+int f()
+{
+  int c;
+  if (true) { };
+}
+int f()
+{
+  if (c)
+	 {
+	 }else{
+  };
+}
+
 float func (int a){
 }
 float func (){
@@ -51,6 +64,7 @@ static float func (const int a, int b){
 	static const int a;
 }
 float func (const int a, int b){
+	int a, b, c;
 	const int a;
 	static bool b;
 	static const char c;
@@ -78,29 +92,26 @@ float func (const int a, int b){
 	
 	if (false){
 		if(true){
-		}
-	}
-	if (true){
-		int a <= 50;
-	}
-
-	else(true){
+		};
+	};
+	if (c){
+	}else{
 		char a <= 'b';
-	}
+	};
 
 	for (a=50: true: a=1){
-	}
-	while(false){
-	}
+	};
+	while(false) do {
+	};
 	for (a=50: true: a=1){
 		teste = 50;
 		string b <= "string b";
-	}
-	while(false){
+	};
+	while(false) do {
 		teste = 50;
 		string b <= "string b";
-	}
-	while(chamada_func()){}
+	};
+	while(chamada_func()) do {};
 	
 	break;
 	continue;
@@ -125,9 +136,9 @@ float func (const int a, int b){
 	a = 1-1 + 10 /a;
 	a = -1;
 
-	if(1+1){}
-	if(1?1:true){}
-	if( 1 ? 1 : true ){}
+	if(1+1){};
+	if(1?1:true){};
+	if( 1 ? 1 : true ){};
 	
 	a = a>1;
 	a = a==1;

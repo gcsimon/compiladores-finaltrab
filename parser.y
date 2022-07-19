@@ -130,10 +130,14 @@ bloco_com_rec:
 	  bloco_com_rec comando
 	| comando;
 comando:
-	  dec_var_loc ';' | dec_var_loc_at ';' | atrib ';'| cont_flux | cham_func ';' | ret_break_cont ';' | op_entr ';' | op_saida ';' | shift ';';
+	  dec_var_loc ';' | dec_var_loc_at ';' | atrib ';'| cont_flux | cham_func ';' | ret_break_cont ';' | op_entr ';'
+	  | op_saida ';' | shift ';' | bloco_comandos_interno ';';
+bloco_comandos_interno:
+	'{' bloco_com_rec'}'
+	| '{' '}';
 dec_var_loc:
-	  stat_const type TK_IDENTIFICADOR
-	| type TK_IDENTIFICADOR;
+	  stat_const type list_ident
+	| type list_ident;
 
 dec_var_loc_at:
 	  type TK_IDENTIFICADOR TK_OC_LE lit_var
@@ -176,18 +180,18 @@ cont_flux:
 	  if_else_opt | for | while;
 
 if_else_opt:
-	  if
+	  if ';'
 	| if else;
 if:
 	  TK_PR_IF '(' expr ')' bloco_comandos;
 else:
-	  TK_PR_ELSE '(' expr ')' bloco_comandos;
+	 TK_PR_ELSE bloco_comandos ';';
 
 for:
-	  TK_PR_FOR '(' atrib ':' expr ':' atrib ')' bloco_comandos;
+	  TK_PR_FOR '(' atrib ':' expr ':' atrib ')' bloco_comandos ';';
 
 while:
-	  TK_PR_WHILE '(' expr ')' bloco_comandos;
+	  TK_PR_WHILE '(' expr ')' TK_PR_DO bloco_comandos ';';
 
 
 // EXPRESSOES - NAO TERMINADO!!!!
