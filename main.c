@@ -10,7 +10,6 @@ extern int yylex_destroy(void);
 int main (int argc, char **argv)
 {
   int ret = yyparse();
-  printf("\nret: %i\n", ret);
   yylex_destroy();
   return ret;
 }
