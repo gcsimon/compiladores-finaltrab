@@ -199,10 +199,10 @@ expr:
 	  expr_rec
 	| expr_rec '?' expr_rec ':' expr_rec;
 expr_rec:
-	  expr_rec op_bin op_un exprs
+	  expr_rec op_bin op_un_rec exprs
 	| expr_rec op_bin exprs
 	| exprs
-	| op_un exprs;
+	| op_un_rec exprs;
 exprs:
 	  TK_IDENTIFICADOR
 	| TK_IDENTIFICADOR '[' expr ']'
@@ -215,6 +215,9 @@ op_bin:
 	| TK_OC_OR
 	| TK_OC_SL | TK_OC_SR;
 
+op_un_rec:
+	  op_un_rec op_un
+	| op_un;
 op_un:
 	  '+' | '-' | '!' | '&' | '*' | '?' | '#';
 
@@ -223,7 +226,7 @@ op_un:
 
 
 void yyerror (char const *s){
-	printf("Erro: ~%s~ de sintaxe na linha %d.", s, get_line_number());
+	printf("Error: %s on line %d.\n", s, get_line_number());
 }
 
 
